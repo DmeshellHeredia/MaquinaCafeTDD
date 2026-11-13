@@ -1,0 +1,21 @@
+﻿# Archivos generados por NetBeans y Ant
+/build/
+/dist/
+
+# Configuracion privada del IDE
+/nbproject/private/
+
+# Archivos compilados
+*.class
+
+# Archivos temporales
+*.log
+*.tmp
+*.bak
+
+# Dependencia JUnit descargada durante CI
+/lib/junit-4.13.2.jar
+
+# Configuraciones del sistema
+.DS_Store
+Thumbs.db

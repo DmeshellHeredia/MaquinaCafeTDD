@@ -1,0 +1,50 @@
+MAQUINA DE CAFE — PRACTICA TDD
+================================
+
+PROYECTO NETBEANS (JAVA CON ANT)
+
+CONTENIDO
+  src/             Codigo fuente: Vaso, Cafetera, Azucarero,
+                   MaquinaDeCafe y Main (demo por consola).
+  test/            19 pruebas de la guia + 11 pruebas de casos limite,
+                   desarrolladas en JUnit 4 (30 en total).
+  Evidencias/      Capturas del ciclo ROJO–VERDE de las 19 pruebas
+                   originales y validaciones finales.
+  nbproject/       Configuracion del proyecto Apache NetBeans.
+  lib/             Hamcrest Core 1.3 para las pruebas de JUnit 4.
+  dist/            JAR ejecutable de demostracion.
+  build.xml        Archivo de compilacion Ant.
+  manifest.mf      Manifiesto del proyecto.
+
+EJECUCION
+  1. Abrir esta carpeta como proyecto en Apache NetBeans.
+  2. Usar Java 21 o superior (configurado en el proyecto).
+  3. Clic derecho en el proyecto > Clean and Build.
+  4. Clic derecho en el proyecto > Test.
+  5. Ejecutar Run Project o la clase maquinacafe.Main para la demo.
+
+  Desde una terminal con Java 21+:
+     java -jar dist/MaquinaCafeTDD.jar
+
+DEPENDENCIAS PARA PRUEBAS
+  JUnit 4.13.2: utilizar la biblioteca "JUnit 4" de NetBeans.
+  Hamcrest Core 1.3: incluido en lib/.
+
+COBERTURA FUNCIONAL
+  - Pequeño: 3 oz; mediano: 5 oz; grande: 7 oz en la demo.
+  - Control de vasos, cafe y azucar disponibles.
+  - Descuento del inventario cuando la preparacion es exitosa.
+  - Validacion de entradas invalidas y casos limite.
+  - Las pruebas originales utilizan los datos de ejemplo de la guia.
+
+VALIDACION DE LA PRACTICA
+  31 de octubre de 2026: 30 pruebas ejecutadas con JUnit real
+  en NetBeans, 0 fallos, 0 errores (100 %).
+  Clean and Build: BUILD SUCCESSFUL.
+  Las evidencias de TDD para los 19 casos originales estan incluidas.
+
+NOTA
+  El ZIP no incluye archivos de compilacion temporales (build/)
+  ni scripts auxiliares de instalacion. NetBeans los regenera.
+  Fecha de entrega indicada en la guia: 3 de noviembre de 2026,
+  11:59 p. m. La modalidad y el formato deben confirmarse en el aula.
