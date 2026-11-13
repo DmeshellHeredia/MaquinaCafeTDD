@@ -1,0 +1,60 @@
+﻿name: CI Pipeline
+
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Compilar y probar MaquinaCafeTDD
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Clonar repositorio
+        uses: actions/checkout@v7
+
+      - name: Configurar Java 21
+        uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Instalar Apache Ant
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y ant ant-optional
+
+      - name: Descargar JUnit 4.13.2
+        run: |
+          curl -fsSL https://repo.maven.apache.org/maven2/junit/junit/4.13.2/junit-4.13.2.jar -o lib/junit-4.13.2.jar
+
+      - name: Compilar proyecto y ejecutar pruebas
+        run: |
+          ant -noinput -Dlibs.junit_4.classpath="$GITHUB_WORKSPACE/lib/junit-4.13.2.jar" clean test jar
+
+      - name: Verificar resultados JUnit
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import xml.etree.ElementTree as ET
+
+          archivos = list(Path("build/test/results").glob("TEST-*.xml"))
+
+          if not archivos:
+              raise SystemExit("ERROR: No se encontraron resultados JUnit")
+
+          resultados = [ET.parse(f).getroot() for f in archivos]
+          pruebas = sum(int(r.get("tests", 0)) for r in resultados)
+          fallos = sum(int(r.get("failures", 0)) for r in resultados)
+          errores = sum(int(r.get("errors", 0)) for r in resultados)
+
+          print(f"Pruebas ejecutadas: {pruebas}")
+          print(f"Fallos: {fallos}")
+          print(f"Errores: {errores}")
+
+          if pruebas != 30 or fallos or errores:
+              raise SystemExit("ERROR: La validacion TDD no fue exitosa")
+
+          print("VALIDACION EXITOSA: 30 pruebas aprobadas")
+          PY
